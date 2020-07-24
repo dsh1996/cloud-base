@@ -1,0 +1,47 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+      config:
+        server-addr:  127.0.0.1:884
+    gateway:
+      discovery:
+        locator:
+          #          enabled: true
+          lowerCaseServiceId: true
+      routes:
+        - id: auth-server
+          uri: lb://auth-server
+          predicates:
+            - Path=/auth/**
+          filters:
+            - name: Hystrix
+              args:
+                name: fallbackcmd
+                fallbackUri: forward:/fallback
+
+# 开启熔断器功能
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 1000 #feign调用连接超时时间
+        readTimeout: 1000 #feign调用读取超时时间
+        loggerLevel: basic #feign调用的log 等级
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            # 全局熔断器5s超时
+            timeoutInMilliseconds: 5000

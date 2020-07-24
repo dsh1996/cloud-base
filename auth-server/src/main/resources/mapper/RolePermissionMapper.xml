@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.server.authserver.dao.RolePermissionMapper">
+    <resultMap id="BaseResultMap" type="com.server.authserver.entity.RolePermission">
+        <!--@mbg.generated generated on Mon Jul 06 14:12:39 CST 2020.-->
+        <id column="role_id" jdbcType="BIGINT" property="roleId"/>
+        <result column="permission_id" jdbcType="BIGINT" property="permissionId"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="create_user" jdbcType="BIGINT" property="createUser"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated generated on Mon Jul 06 14:12:39 CST 2020.-->
+        role_id, permission_id, description, create_user, create_time
+    </sql>
+    <!--查询角色权限信息-->
+    <select id="getPermission" resultType="com.server.authserver.entity.Permission">
+        SELECT
+            t1.id,
+            t1.permission,
+            t1.description
+        FROM
+            tab_role_permission t
+            LEFT JOIN tab_permission t1 ON t1.id = t.permission_id
+        WHERE
+            t.role_id in
+            <foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
+                #{id}
+            </foreach>
+    </select>
+</mapper>

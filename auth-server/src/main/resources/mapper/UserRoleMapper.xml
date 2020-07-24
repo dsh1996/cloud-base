@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.server.authserver.dao.UserRoleMapper">
+    <resultMap id="BaseResultMap" type="com.server.authserver.entity.UserRole">
+        <!--@mbg.generated generated on Mon Jul 06 13:51:23 CST 2020.-->
+        <id column="user_id" jdbcType="BIGINT" property="userId"/>
+        <id column="role_id" jdbcType="BIGINT" property="roleId"/>
+        <result column="create_user" jdbcType="BIGINT" property="createUser"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated generated on Mon Jul 06 13:51:23 CST 2020.-->
+        user_id, role_id, create_user, create_time
+    </sql>
+    <!--查询用户角色列表信息-->
+    <select id="getRoles" resultType="com.server.authserver.entity.Role">
+        SELECT
+            t1.id,
+            t1.`name`,
+            t1.description
+        FROM
+            tab_user_role t
+            LEFT JOIN tab_role t1 ON t1.id = t.role_id
+        WHERE
+            t.user_id = #{userId,jdbcType=BIGINT}
+    </select>
+</mapper>

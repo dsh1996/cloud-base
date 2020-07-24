@@ -1,0 +1,8 @@
+swagger.docket.auth.title=权限服务
+swagger.docket.auth.description=权限服务
+swagger.docket.auth.version=1.2.0.RELEASE
+swagger.docket.auth.termsOfServiceUrl=https://gitee.com/didispace/spring-boot-starter-swagger
+swagger.docket.auth.contact.name=dengshuihong
+swagger.docket.auth.contact.url=http://spring4all.com/
+swagger.docket.auth.contact.email=didi@didispace.com
+swagger.docket.bbb.basePackage=com.server.authserver.controller

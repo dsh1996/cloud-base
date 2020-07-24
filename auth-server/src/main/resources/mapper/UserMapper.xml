@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.server.authserver.dao.UserMapper">
+    <resultMap id="BaseResultMap" type="com.server.authserver.entity.User">
+        <!--@mbg.generated generated on Mon Jul 06 13:51:23 CST 2020.-->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="photo" jdbcType="VARCHAR" property="photo"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+        <result column="logic_status" jdbcType="TINYINT" property="logicStatus"/>
+        <result column="create_time" jdbcType="DATE" property="createTime"/>
+        <result column="update_time" jdbcType="DATE" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated generated on Mon Jul 06 13:51:23 CST 2020.-->
+        id, `name`, `password`, phone, photo, email,logic_status,status,create_time, update_time
+    </sql>
+</mapper>

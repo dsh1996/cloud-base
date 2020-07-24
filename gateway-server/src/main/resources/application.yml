@@ -1,0 +1,17 @@
+server:
+  port: 9090
+
+spring:
+  application:
+    name: gateway-server
+  profiles:
+    active: dev
+
+
+#swagger
+knife4j:
+  cors: true
+  basic:
+    enable: true
+    username: admin
+    password: admin

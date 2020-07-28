@@ -47,12 +47,20 @@ public class Result<T> {
         return Result.builder().code(500).msg("失败").build();
     }
 
+    public static Result ERROR(String msg) {
+        return new Result(ResultEnum.ERROR, msg);
+    }
+
     public static Result FAILED(String msg) {
         return Result.builder().code(500).msg(msg).build();
     }
 
     public static Result UNAUTH() {
         return Result.builder().code(403).msg("无权操作,请先授权!").build();
+    }
+
+    public static Result NO_TOKEN() {
+        return Result.builder().code(403).msg("令牌丢失，服务拒绝访问!").build();
     }
 
     public static Result SERVER_BUSY() {

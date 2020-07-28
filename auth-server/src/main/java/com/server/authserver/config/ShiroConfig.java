@@ -1,5 +1,6 @@
 package com.server.authserver.config;
 
+import com.server.authserver.shiro.AuthFilter;
 import com.server.authserver.shiro.AuthRealm;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
@@ -11,6 +12,8 @@ import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreato
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.servlet.Filter;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -54,22 +57,22 @@ public class ShiroConfig {
     public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
-        Map<String, String> filterMap = new LinkedHashMap<>();
-        filterMap.put("/login", "anon");
-        filterMap.put("/register", "anon");
-        filterMap.put("/v2/api-docs", "anon");
-        filterMap.put("/v2/api-docs-ext", "anon");
-        filterMap.put("/swagger-resources", "anon");
-        filterMap.put("/user/init", "anon");
-        filterMap.put("/webjars/**", "anon");
-        filterMap.put("/*.html", "anon");
-        filterMap.put("/*.js", "anon");
-        filterMap.put("/*.css", "anon");
-        filterMap.put("/*.jpg", "anon");
-        filterMap.put("/*.peng", "anon");
-        filterMap.put("/**", "authc");
-        shiroFilterFactoryBean.setLoginUrl("/unauth");
-        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
+
+        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
+        filterChainDefinitionMap.put("/login", "anon");
+        filterChainDefinitionMap.put("/register", "anon");
+        filterChainDefinitionMap.put("/user/init", "anon");
+        filterChainDefinitionMap.put("/test/info", "anon");
+        filterChainDefinitionMap.put("/v2/api-docs", "anon");
+        filterChainDefinitionMap.put("/v2/api-docs-ext", "anon");
+        filterChainDefinitionMap.put("/swagger-resources", "anon");
+        filterChainDefinitionMap.put("/webjars/**", "anon");
+        filterChainDefinitionMap.put("/doc.html", "anon");
+        filterChainDefinitionMap.put("/**", "authFilter");
+        shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
+        Map<String, Filter> filterMap = new LinkedHashMap<>(1);
+        filterMap.put("authFilter", new AuthFilter());
+        shiroFilterFactoryBean.setFilters(filterMap);
         return shiroFilterFactoryBean;
     }
 

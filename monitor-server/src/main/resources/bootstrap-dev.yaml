@@ -1,0 +1,11 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream
+
+turbine:
+  app-config: auth-server,gateway-server
+  turbine:
+    combine-host-port: true
+    cluster-name-expression: new String("default")

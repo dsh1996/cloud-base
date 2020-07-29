@@ -1,0 +1,15 @@
+server:
+  port: 9091
+spring:
+  application:
+    name: monitor-server
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      config:
+        file-extension: yaml
+        server-addr: 192.168.68.128:8848
+        namespace: 45f56fe9-1898-4ca6-98a1-3a5a9e035e8c
+      discovery:
+        server-addr: 192.168.68.128:8848

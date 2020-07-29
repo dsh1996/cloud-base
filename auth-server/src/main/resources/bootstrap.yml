@@ -1,18 +1,15 @@
 server:
-  port: 9090
-
+  port: 9092
 spring:
   application:
-    name: gateway-server
+    name: auth-server
   profiles:
-    active: dev
+    active: dev, shiro
   cloud:
     nacos:
-      discovery:
-        server-addr: 192.168.68.128:8848
       config:
         file-extension: yaml
         server-addr: 192.168.68.128:8848
-        group: DEFAULT_GROUP
         namespace: 45f56fe9-1898-4ca6-98a1-3a5a9e035e8c
-
+      discovery:
+        server-addr: 192.168.68.128:8848

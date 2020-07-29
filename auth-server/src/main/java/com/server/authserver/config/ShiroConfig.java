@@ -2,6 +2,7 @@ package com.server.authserver.config;
 
 import com.server.authserver.shiro.AuthFilter;
 import com.server.authserver.shiro.AuthRealm;
+import com.server.authserver.shiro.ShiroProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
@@ -11,11 +12,13 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 
+import javax.annotation.Resource;
 import javax.servlet.Filter;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @Slf4j
 @Configuration
@@ -24,6 +27,10 @@ public class ShiroConfig {
     public ShiroConfig() {
         log.info("-------------初始化shiro 权限配置中... -------------- ");
     }
+
+
+    @Resource
+    private ShiroProperties shiroProperties;
 
     /**
      * 密码加密
@@ -57,17 +64,8 @@ public class ShiroConfig {
     public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
-
-        Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-        filterChainDefinitionMap.put("/login", "anon");
-        filterChainDefinitionMap.put("/register", "anon");
-        filterChainDefinitionMap.put("/user/init", "anon");
-        filterChainDefinitionMap.put("/test/info", "anon");
-        filterChainDefinitionMap.put("/v2/api-docs", "anon");
-        filterChainDefinitionMap.put("/v2/api-docs-ext", "anon");
-        filterChainDefinitionMap.put("/swagger-resources", "anon");
-        filterChainDefinitionMap.put("/webjars/**", "anon");
-        filterChainDefinitionMap.put("/doc.html", "anon");
+        Map<String, String> filterChainDefinitionMap = Objects.isNull(shiroProperties.getFilterPath()) ?
+                new LinkedHashMap<>(2) : shiroProperties.getFilterPath();
         filterChainDefinitionMap.put("/**", "authFilter");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         Map<String, Filter> filterMap = new LinkedHashMap<>(1);
@@ -92,6 +90,4 @@ public class ShiroConfig {
         advisorAutoProxyCreator.setProxyTargetClass(true);
         return advisorAutoProxyCreator;
     }
-
-
 }

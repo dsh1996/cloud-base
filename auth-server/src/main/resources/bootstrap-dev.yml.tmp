@@ -1,0 +1,31 @@
+knife4j:
+  basic:
+    password: admin
+    username: admin
+logging:
+  level: com:
+      server:
+        authserver:
+          dao: debug
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://192.168.68.128:10000/auth?serverTimezone=CTT&characterEncoding=utf8&useUnicode=true&useSSL=false
+    username: root
+
+#shiro 配置
+shiro:
+  config:
+    filterPath:
+      '[/login]': anon
+      '[/register]': anon
+      '[/user/init]': anon
+      '[/actuator/*]': anon
+      #   '[  /test/info: anon
+      '[/v2/api-docs]': anon
+      '[/v2/api-docs-ext]': anon
+      '[/swagger-resources]': anon
+      '[/webjars/**]': anon
+      '[/doc.html]': anon

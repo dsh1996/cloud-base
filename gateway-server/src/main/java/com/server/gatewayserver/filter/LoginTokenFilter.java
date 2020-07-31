@@ -14,7 +14,7 @@ public class LoginTokenFilter implements GlobalFilter, Ordered {
 
     private static final String ACCESS_KEY = "ASSESS_TOKEN";
 
-    private static final int order = -10;
+    private static final int order = -100;
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {

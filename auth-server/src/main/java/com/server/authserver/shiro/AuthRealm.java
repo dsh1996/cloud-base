@@ -1,6 +1,7 @@
 package com.server.authserver.shiro;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.server.authserver.common.Assert;
 import com.server.authserver.entity.Permission;
 import com.server.authserver.entity.Role;
 import com.server.authserver.entity.User;
@@ -63,6 +64,7 @@ public class AuthRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
         User user = userService.getOne(new LambdaQueryWrapper<User>().eq(User::getPhone, token.getUsername()));
+        Assert.notNull(user, "账号不存在");
         ByteSource salt = ByteSource.Util.bytes(user.getName());
         return new SimpleAuthenticationInfo(user, user.getPassword(), salt, this.getName());
     }

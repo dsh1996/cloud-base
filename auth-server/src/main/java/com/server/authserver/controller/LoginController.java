@@ -24,8 +24,8 @@ public class LoginController {
     private UserService userService;
 
     @ApiOperation(value = "登录", notes = "登录")
-    @GetMapping("/login")
-    public Result doLogin(@Validated(User.Login.class) User user) {
+    @PostMapping("/login")
+    public Result doLogin(@RequestBody @Validated(User.Login.class)  User user) {
         String token = userService.login(user);
         //存储用户信息
         return StrUtil.isNotBlank(token) ? Result.SUCCESS("登录成功~", token) : Result.FAILED("登录失败~");
@@ -54,6 +54,7 @@ public class LoginController {
     }
 
     @GetMapping("/unauth")
+    @ApiOperation(value = "无权访问",hidden = true)
     public Result unauth() {
         return Result.UNAUTH();
     }

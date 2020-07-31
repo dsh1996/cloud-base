@@ -15,6 +15,22 @@ spring:
     url: jdbc:mysql://192.168.68.128:10000/auth?serverTimezone=CTT&characterEncoding=utf8&useUnicode=true&useSSL=false
     username: root
 
+  zipkin:
+      baseUrl: http://192.168.68.128:9411
+      sender:
+        type: web
+    sleuth:
+      sampler:
+        percentage: 1.0
+
+# docker pull openzipkin/zipkin:latest
+#docker run -d -p 9411:9411 openzipkin/zipkin
+
+management:
+  endpoint:
+    health:
+      show-details: always
+
 #shiro 配置
 shiro:
   config:

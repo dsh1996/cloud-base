@@ -13,25 +13,3 @@ spring:
         namespace: 45f56fe9-1898-4ca6-98a1-3a5a9e035e8c
       discovery:
         server-addr: 192.168.68.128:8848
-
-    zipkin:
-      baseUrl: http://192.168.68.128:9411
-      sender:
-        type: web
-    sleuth:
-      sampler:
-        percentage: 1.0
-
-  boot:
-    admin:
-      client:
-        url: http://localhost:9091
-
-management:
-  endpoint:
-    health:
-      show-details: always
-# docker pull openzipkin/zipkin:latest
-#docker run -d -p 9411:9411 openzipkin/zipkin
-
-

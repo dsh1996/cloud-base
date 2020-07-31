@@ -34,14 +34,14 @@ public class User extends SuperEntity {
      * 密码
      */
     @TableField(value = "password")
-    @NotNull(message = "请填写密码！", groups = {Create.class, Login.class})
+    @NotNull(message = "请填写密码！", groups = {Login.class})
     private String password;
 
     /**
      * 登录账号(手机号)
      */
     @TableField(value = "phone")
-    @NotNull(message = "请输入有效手机号！", groups = {Create.class, Login.class})
+    @NotNull(message = "请输入有效手机号！", groups = {Login.class})
     private String phone;
 
     /**
@@ -67,15 +67,15 @@ public class User extends SuperEntity {
     private LocalDateTime updateTime;
 
 
-    public interface Login extends Default {
+    public interface Login {
     }
 
 
-    public User(@NotNull(message = "请填写用户名！") String name, @NotNull(message = "请填写密码！", groups = {Create.class, Login.class}) String password, @NotNull(message = "请输入有效手机号！", groups = {Create.class, Login.class}) String phone, String photo, @Email(message = "请输入有效邮箱") String email) {
+  /*  public User(@NotNull(message = "请填写用户名！") String name, @NotNull(message = "请填写密码！", groups = {Create.class, Login.class}) String password, @NotNull(message = "请输入有效手机号！", groups = {Create.class, Login.class}) String phone, String photo, @Email(message = "请输入有效邮箱") String email) {
         this.name = name;
         this.password = password;
         this.phone = phone;
         this.photo = photo;
         this.email = email;
-    }
+    }*/
 }

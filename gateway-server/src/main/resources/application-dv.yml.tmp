@@ -7,13 +7,9 @@ management:
     health:
       show-details: always
 
+
 spring:
   cloud:
-    nacos:
-      discovery:
-        server-addr: 127.0.0.1:8848
-      config:
-        server-addr:  127.0.0.1:884
     gateway:
       discovery:
         locator:
@@ -33,15 +29,39 @@ spring:
               args:
                 key-resolver: '#{@ipKeyResolver}'     #限流策略
                 redis-rate-limiter.replenishRate: 1   #令牌桶每秒填充平均速率。
+                redis-rate-limiter.burstCapacity: 800   #令牌桶总容量。
+            - StripPrefix=1
+        - id: monitor-server
+          uri: lb://monitor-server
+          predicates:
+            - Path=/monitor/**
+          filters:
+            - name: Hystrix     # 熔断、降级配置
+              args:
+                name: fallbackcmd
+                fallbackUri: forward:/fallback
+            - name: RequestRateLimiter      # 限流配置
+              args:
+                key-resolver: '#{@ipKeyResolver}'     #限流策略
+                redis-rate-limiter.replenishRate: 1   #令牌桶每秒填充平均速率。
                 redis-rate-limiter.burstCapacity: 30   #令牌桶总容量。
             - StripPrefix=1
-      zipkin:
-        base-url: http://192.168.68.128:9411
-        sender:
-          type: web
-      sleuth:
-        sampler:
-          probability: 1.0
+        - id: spike-server
+          uri: lb://spike-server
+          predicates:
+            - Path=/spike/**
+          filters:
+            - name: Hystrix     # 熔断、降级配置
+              args:
+                name: fallbackcmd
+                fallbackUri: forward:/fallback
+            - name: RequestRateLimiter      # 限流配置
+              args:
+                key-resolver: '#{@ipKeyResolver}'     #限流策略
+                redis-rate-limiter.replenishRate: 1   #令牌桶每秒填充平均速率。
+                redis-rate-limiter.burstCapacity: 30   #令牌桶总容量。
+            - StripPrefix=1
+
   redis:
     host: 192.168.68.128
     port: 6379
@@ -52,6 +72,13 @@ spring:
         max-wait: -1ms      # 连接池最大阻塞等待时间（使用负值表示没有限制）
         max-idle: 10        # 连接池中的最大空闲连接
         min-idle: 5         # 连接池中的最小空闲连接
+  zipkin:
+      base-url: http://192.168.68.128:9411
+      sender:
+        type: web
+  sleuth:
+    sampler:
+      probability: 1.0
 
 feign:
   client:
@@ -68,6 +95,7 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 5000
-
-
-
+          semaphore:
+            maxConcurrentRequests: 1000
+        circuitBreaker:
+          sleepWindowInMilliseconds: 5000

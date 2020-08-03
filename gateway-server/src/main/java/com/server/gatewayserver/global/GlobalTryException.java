@@ -1,36 +1,51 @@
 package com.server.gatewayserver.global;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.map.MapUtil;
+import cn.hutool.core.util.ObjectUtil;
 import com.server.common.exception.AuthException;
 import com.server.common.exception.BizException;
 import com.server.common.vo.Result;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.validation.BindException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.boot.autoconfigure.web.ErrorProperties;
+import org.springframework.boot.autoconfigure.web.ResourceProperties;
+import org.springframework.boot.autoconfigure.web.reactive.error.DefaultErrorWebExceptionHandler;
+import org.springframework.boot.web.error.ErrorAttributeOptions;
+import org.springframework.boot.web.reactive.error.ErrorAttributes;
+import org.springframework.cloud.gateway.support.TimeoutException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.http.MediaType;
+import org.springframework.web.reactive.function.server.RouterFunction;
+import org.springframework.web.reactive.function.server.ServerRequest;
+import org.springframework.web.reactive.function.server.ServerResponse;
+
+import java.util.Map;
 
 @Slf4j
-public class GlobalTryException {
+public class GlobalTryException extends DefaultErrorWebExceptionHandler {
 
-    @ExceptionHandler(value = BindException.class)
-    public Result validTry(BindException e) {
-        log.error(e.getMessage(), e);
-        return Result.builder().code(400).msg(e.getFieldError().getDefaultMessage()).build();
+    public GlobalTryException(ErrorAttributes errorAttributes, ResourceProperties resourceProperties, ErrorProperties errorProperties, ApplicationContext applicationContext) {
+        super(errorAttributes, resourceProperties, errorProperties, applicationContext);
+        log.info("----------------全局异常拦截初始化中...-----------------");
     }
 
-    @ExceptionHandler(value = IllegalArgumentException.class)
-    public Result validTry(IllegalArgumentException e) {
-        log.error(e.getMessage(), e);
-        return Result.builder().code(400).msg(e.getMessage()).build();
+    @Override
+    protected Map<String, Object> getErrorAttributes(ServerRequest request, ErrorAttributeOptions options) {
+        Throwable error = super.getError(request);
+        log.error("gateway find global error, msg is:  {} ", error.getMessage());
+        if (error instanceof AuthException) {
+            return BeanUtil.beanToMap(((AuthException) error).getResult());
+        }
+        if (error instanceof TimeoutException) {
+            return BeanUtil.beanToMap(Result.FAILED("当前访问人数过多，请重新尝试."));
+        }
+        return BeanUtil.beanToMap(Result.ERROR("服务异常，请稍后再试."));
     }
 
-    @ExceptionHandler(value = AuthException.class)
-    public Result validTry(AuthException e) {
-        log.error(e.getMessage(), e);
-        return e.getResult();
-    }
 
-    @ExceptionHandler(value = BizException.class)
-    public Result validTry(BizException e) {
-        log.error(e.getMessage(), e);
-        return e.getResult();
+    @Override
+    protected int getHttpStatus(Map<String, Object> errorAttributes) {
+        return MapUtil.getInt(errorAttributes, "code");
     }
 }
+

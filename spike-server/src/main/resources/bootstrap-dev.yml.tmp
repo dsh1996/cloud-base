@@ -1,15 +1,15 @@
 spring:
-  cloud:
-    zipkin:
-      base-url: http://192.168.68.128:9411
-      sender:
-        type: web
-    sleuth:
-      sampler:
-        probability: 1.0
+  zipkin:
+    base-url: http://192.168.68.128:9411
+    sender:
+      type: web
+  sleuth:
+    sampler:
+      probability: 1.0
   redis:
     host: 192.168.68.128
     port: 6379
+    database: 0
     timeout: 6000ms  # 连接超时时长（毫秒）
     jedis:
       pool:

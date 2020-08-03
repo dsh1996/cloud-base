@@ -64,7 +64,7 @@ public class Result<T> {
     }
 
     public static Result SERVER_BUSY() {
-        return Result.builder().code(500).msg("服务繁忙，请稍后再试！").build();
+        return Result.builder().code(500).msg("服务忙，请重试.").build();
     }
 
 }

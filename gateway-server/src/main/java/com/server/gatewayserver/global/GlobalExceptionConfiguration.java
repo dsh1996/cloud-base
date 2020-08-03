@@ -1,3 +1,4 @@
+/*
 package com.server.gatewayserver.global;
 
 import com.alibaba.fastjson.JSON;
@@ -16,7 +17,7 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 @Slf4j
-@Order(-1)
+@Order(-100)
 @Configuration
 @RequiredArgsConstructor
 public class GlobalExceptionConfiguration implements ErrorWebExceptionHandler {
@@ -24,7 +25,6 @@ public class GlobalExceptionConfiguration implements ErrorWebExceptionHandler {
     @Override
     public Mono<Void> handle(ServerWebExchange exchange, Throwable ex) {
         ServerHttpResponse response = exchange.getResponse();
-
         if (response.isCommitted()) {
             return Mono.error(ex);
         }
@@ -43,4 +43,4 @@ public class GlobalExceptionConfiguration implements ErrorWebExceptionHandler {
             return bufferFactory.wrap(JSON.toJSONBytes(Result.ERROR("服务异常")));
         }));
     }
-}
+}*/

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/auth-server/auth-server.iml" filepath="$PROJECT_DIR$/auth-server/auth-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/cloud-base.iml" filepath="$PROJECT_DIR$/.idea/cloud-base.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gateway-server/gateway-server.iml" filepath="$PROJECT_DIR$/gateway-server/gateway-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/monitor-server/monitor-server.iml" filepath="$PROJECT_DIR$/monitor-server/monitor-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/monitor-server1/monitor-server1.iml" filepath="$PROJECT_DIR$/monitor-server1/monitor-server1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/server-common/server-common.iml" filepath="$PROJECT_DIR$/server-common/server-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spike-server/spike-server.iml" filepath="$PROJECT_DIR$/spike-server/spike-server.iml" />
+    </modules>
+  </component>
+</project>

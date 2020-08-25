@@ -1,8 +1,10 @@
 package com.server.authserver.controller;
 
 import cn.hutool.core.util.StrUtil;
+import com.alibaba.fastjson.JSONObject;
 import com.server.authserver.entity.User;
 import com.server.authserver.service.UserService;
+import com.server.common.model.Token;
 import com.server.common.vo.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,10 +27,10 @@ public class LoginController {
 
     @ApiOperation(value = "登录", notes = "登录")
     @PostMapping("/login")
-    public Result doLogin(@RequestBody @Validated(User.Login.class)  User user) {
+    public Result doLogin(@RequestBody @Validated(User.Login.class) User user) {
         String token = userService.login(user);
         //存储用户信息
-        return StrUtil.isNotBlank(token) ? Result.SUCCESS("登录成功~", token) : Result.FAILED("登录失败~");
+        return StrUtil.isNotBlank(token) ? Result.SUCCESS("登录成功~", Token.builder().accessToken(token).build()) : Result.FAILED("登录失败~");
     }
 
     @ApiOperation(value = "用户注册", notes = "用户注册")
@@ -40,17 +42,24 @@ public class LoginController {
 
     @ApiOperation(value = "登出", notes = "登出")
     @PostMapping("/logout")
-    public Result logout() {
+    public Result logout(){
+
         SecurityUtils.getSubject().logout();
         return Result.SUCCESS("登出成功");
     }
 
-    @GetMapping("/info")
+    @PostMapping("/info")
     @ApiOperation(value = "基本信息", notes = "获取当前登录人的基本信息")
     public Result info() {
         PrincipalCollection principals = SecurityUtils.getSubject().getPrincipals();
         User user = (User) principals.getPrimaryPrincipal();
         return Result.SUCCESS(user);
+    }
+
+    @PostMapping("/menus")
+    @ApiOperation(value = "获取权限列表", notes = "获取登录人权限列表")
+    public Result permissionList() {
+        return Result.SUCCESS(null);
     }
 
     @GetMapping("/unauth")

@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.groups.Default;
 import java.time.LocalDateTime;
@@ -34,14 +35,14 @@ public class User extends SuperEntity {
      * 密码
      */
     @TableField(value = "password")
-    @NotNull(message = "请填写密码！", groups = {Login.class})
+    @NotBlank(message = "请填写密码！", groups = Login.class)
     private String password;
 
     /**
      * 登录账号(手机号)
      */
     @TableField(value = "phone")
-    @NotNull(message = "请输入有效手机号！", groups = {Login.class})
+    @NotBlank(message = "请输入有效手机号！", groups = Login.class)
     private String phone;
 
     /**
@@ -67,7 +68,7 @@ public class User extends SuperEntity {
     private LocalDateTime updateTime;
 
 
-    public interface Login {
+    public interface Login{
     }
 
 

@@ -1,3 +1,4 @@
+/*
 package com.server.authserver.config;
 
 import org.springframework.context.annotation.Configuration;
@@ -18,3 +19,4 @@ public class MvcConfig implements WebMvcConfigurer {
                 .allowCredentials(true);
     }
 }
+*/

@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.web.ResourceProperties;
 import org.springframework.boot.autoconfigure.web.reactive.error.DefaultErrorWebExceptionHandler;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.reactive.error.ErrorAttributes;
+import org.springframework.cloud.gateway.support.NotFoundException;
 import org.springframework.cloud.gateway.support.TimeoutException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
@@ -32,12 +33,15 @@ public class GlobalTryException extends DefaultErrorWebExceptionHandler {
     @Override
     protected Map<String, Object> getErrorAttributes(ServerRequest request, ErrorAttributeOptions options) {
         Throwable error = super.getError(request);
-        log.error("gateway find global error, msg is:  {} ", error.getMessage());
+        log.error("gateway find global error, visit path is {}, msg is:  {} ", request.path(), error.getMessage());
         if (error instanceof AuthException) {
             return BeanUtil.beanToMap(((AuthException) error).getResult());
         }
+        if (error instanceof NotFoundException) {
+            return BeanUtil.beanToMap(Result.FAILED("您的访问被迷路了，请稍后重试或联系管理员."));
+        }
         if (error instanceof TimeoutException) {
-            return BeanUtil.beanToMap(Result.FAILED("当前访问人数过多，请重新尝试."));
+            return BeanUtil.beanToMap(Result.FAILED("服务堵车啦，请重新尝试."));
         }
         return BeanUtil.beanToMap(Result.ERROR("服务异常，请稍后再试."));
     }

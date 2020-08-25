@@ -3,6 +3,7 @@ package com.server.gatewayserver.global;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.ObjectUtil;
+import com.netflix.hystrix.exception.HystrixRuntimeException;
 import com.server.common.exception.AuthException;
 import com.server.common.exception.BizException;
 import com.server.common.vo.Result;
@@ -41,6 +42,9 @@ public class GlobalTryException extends DefaultErrorWebExceptionHandler {
             return BeanUtil.beanToMap(Result.FAILED("您的访问被迷路了，请稍后重试或联系管理员."));
         }
         if (error instanceof TimeoutException) {
+            return BeanUtil.beanToMap(Result.FAILED("服务堵车啦，请重新尝试."));
+        }
+        if(error instanceof HystrixRuntimeException){
             return BeanUtil.beanToMap(Result.FAILED("服务堵车啦，请重新尝试."));
         }
         return BeanUtil.beanToMap(Result.ERROR("服务异常，请稍后再试."));

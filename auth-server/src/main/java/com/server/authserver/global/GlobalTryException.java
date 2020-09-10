@@ -12,6 +12,9 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+
 @Slf4j
 @RestControllerAdvice
 public class GlobalTryException {
@@ -32,6 +35,15 @@ public class GlobalTryException {
     public Result validTry(IllegalArgumentException e) {
         log.warn(e.getMessage());
         return Result.builder().code(400).msg(e.getMessage()).build();
+    }
+
+    @ExceptionHandler(value = SQLException.class)
+    public Result validTry(SQLException e) {
+        log.warn(e.getMessage());
+        if(e instanceof SQLIntegrityConstraintViolationException){
+            return Result.builder().code(501).msg("当前账号已被注册！").build();
+        }
+        return Result.builder().code(501).msg("数据异常").build();
     }
 
     @ExceptionHandler(value = IncorrectCredentialsException.class)

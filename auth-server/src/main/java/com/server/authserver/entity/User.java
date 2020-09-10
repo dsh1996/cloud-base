@@ -4,14 +4,13 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.server.authserver.common.SuperEntity;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.groups.Default;
 import java.time.LocalDateTime;
 
 @Data
@@ -43,6 +42,7 @@ public class User extends SuperEntity {
      */
     @TableField(value = "phone")
     @NotBlank(message = "请输入有效手机号！", groups = Login.class)
+    @JsonProperty("userName")
     private String phone;
 
     /**
@@ -68,7 +68,7 @@ public class User extends SuperEntity {
     private LocalDateTime updateTime;
 
 
-    public interface Login{
+    public interface Login {
     }
 
 

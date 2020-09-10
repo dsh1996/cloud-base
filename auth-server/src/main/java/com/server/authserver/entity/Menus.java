@@ -4,15 +4,16 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.server.authserver.common.SuperEntity;
 import lombok.Data;
 
 @Data
 @TableName(value = "tab_menus")
-public class Menus {
+public class Menus extends SuperEntity {
     /**
      * 主键，菜单ID
      */
-     @TableId(value = "id", type = IdType.INPUT)
+    @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
     /**
@@ -27,15 +28,32 @@ public class Menus {
     @TableField(value = "about")
     private String about;
 
+    @TableField(value = "path")
+    private String path;
+
+    @TableField(value = "component")
+    private String component;
+
+    @TableField(value = "title")
+    private String title;
+
+    @TableField(value = "icon")
+    private String icon;
+
+    @TableField(value = "redirect")
+    private String redirect;
+
     /**
      * 父ID
      */
     @TableField(value = "parent")
     private Long parent;
 
-    public static final String COL_NAME = "name";
+    /**
+     * 依赖关系 例如：[父ID.子ID]
+     */
+    @TableField(value = "depend")
+    private String depend;
 
-    public static final String COL_ABOUT = "about";
 
-    public static final String COL_PARENT = "parent";
 }

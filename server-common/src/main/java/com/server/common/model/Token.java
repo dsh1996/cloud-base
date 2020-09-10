@@ -1,8 +1,6 @@
 package com.server.common.model;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -10,6 +8,8 @@ import java.time.LocalDateTime;
 @Setter
 @Getter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public final class Token {
     //创建时间
     private LocalDateTime createTime = LocalDateTime.now();

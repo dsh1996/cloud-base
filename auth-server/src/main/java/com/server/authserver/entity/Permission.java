@@ -13,7 +13,7 @@ public class Permission extends SuperEntity {
     /**
      * 权限ID
      */
-     @TableId(value = "id", type = IdType.INPUT)
+     @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
     /**

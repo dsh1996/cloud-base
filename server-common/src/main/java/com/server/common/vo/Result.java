@@ -52,7 +52,7 @@ public class Result<T> {
     }
 
     public static Result FAILED(String msg) {
-        return Result.builder().code(500).msg(msg).build();
+        return Result.builder().code(501).msg(msg).build();
     }
 
     public static Result UNAUTH() {
@@ -60,7 +60,7 @@ public class Result<T> {
     }
 
     public static Result NO_TOKEN() {
-        return Result.builder().code(403).msg("令牌丢失，服务拒绝访问!").build();
+        return Result.builder().code(401).msg("令牌丢失，服务拒绝访问!").build();
     }
 
     public static Result SERVER_BUSY() {

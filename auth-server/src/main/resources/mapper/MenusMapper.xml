@@ -6,10 +6,16 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="about" jdbcType="VARCHAR" property="about" />
+    <result column="path" jdbcType="VARCHAR" property="path" />
+    <result column="component" jdbcType="VARCHAR" property="component" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="redirect" jdbcType="VARCHAR" property="redirect" />
+    <result column="depend" jdbcType="VARCHAR" property="depend" />
     <result column="parent" jdbcType="BIGINT" property="parent" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated generated on Mon Jul 06 13:51:23 CST 2020.-->
-    id, `name`, about, parent
+    id, `name`, about,path, component, title, icon, redirect,  parent,depend
   </sql>
 </mapper>

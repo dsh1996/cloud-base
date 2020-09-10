@@ -44,7 +44,7 @@ public class GlobalTryException extends DefaultErrorWebExceptionHandler {
         if (error instanceof TimeoutException) {
             return BeanUtil.beanToMap(Result.FAILED("服务堵车啦，请重新尝试."));
         }
-        if(error instanceof HystrixRuntimeException){
+        if (error instanceof HystrixRuntimeException) {
             return BeanUtil.beanToMap(Result.FAILED("服务堵车啦，请重新尝试."));
         }
         return BeanUtil.beanToMap(Result.ERROR("服务异常，请稍后再试."));
@@ -53,7 +53,7 @@ public class GlobalTryException extends DefaultErrorWebExceptionHandler {
 
     @Override
     protected int getHttpStatus(Map<String, Object> errorAttributes) {
-        return MapUtil.getInt(errorAttributes, "code");
+        return 200;
     }
 }
 

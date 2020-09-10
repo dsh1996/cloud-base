@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.generator.config.PackageConfig;
 import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.cloud.easytoolsserver.base.SuperController;
+import com.cloud.easytoolsserver.model.GenneratorConfig;
 
 import java.sql.Driver;
 
@@ -18,10 +19,30 @@ public class CodeGennerator {
     static String URL = "jdbc:mysql://192.168.68.128:10000/auth?serverTimezone=UTC";
 
     public static void main(String[] args) {
-        run();
+
+        new CodeGennerator().run();
     }
 
-    public static void run() {
+    public Boolean submit(GenneratorConfig config) {
+        AutoGenerator generator = new AutoGenerator();
+        GlobalConfig globalConfig = config.getGlobalConfig();
+        globalConfig.setOutputDir("G://code")   //设置输出路径
+                .setFileOverride(true)  //设置文件覆盖
+                .setServiceName("%sService");
+
+        StrategyConfig strategyConfig = config.getStrategyConfig();
+        strategyConfig.setCapitalMode(true)
+                .setNaming(NamingStrategy.underline_to_camel)
+                .setColumnNaming(NamingStrategy.underline_to_camel);
+        generator.setGlobalConfig(globalConfig)
+                .setDataSource(config.getDataSourceConfig())
+                .setStrategy(strategyConfig)
+                .setPackageInfo(config.getPackageConfig());
+        generator.execute();
+        return true;
+    }
+
+    public void run() {
         AutoGenerator generator = new AutoGenerator();
 
         GlobalConfig globalConfig = new GlobalConfig();
@@ -33,7 +54,6 @@ public class CodeGennerator {
                 .setSwagger2(true)
                 .setBaseResultMap(true) //基本结果集合
                 .setBaseColumnList(true);   //设置基本的列
-
 
         //数据源配置
         DataSourceConfig dataSourceConfig = new DataSourceConfig();

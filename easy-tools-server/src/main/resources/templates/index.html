@@ -18,12 +18,12 @@
 
         header {
             height: 60px;
-            background-color: #909399;
+            background-color: #393D49;
+        / / #909399;
             line-height: 60px;
         }
 
         header h2 {
-            width: 80%;
             margin: auto;
         }
 
@@ -44,11 +44,32 @@
             text-align: center;
             line-height: 50px;
         }
+
+        main::-webkit-scrollbar {
+            display: none
+        }
     </style>
 </head>
 <body>
 <header>
-    <h2 style="color: #fff;text-indent: 10px">代码生成工具</h2>
+    <div class="layui-row" style="width: 80%; margin: auto">
+        <div class="layui-col-xs9">
+            <h2 style="color: #fff;text-indent: 10px;">
+                <i class="layui-icon layui-icon-tree"style="font-size: 30px;"></i>
+                代码生成平台
+            </h2>
+        </div>
+        <div class="layui-col-xs3" style="text-align: right">
+            <ul class="layui-nav"> <-- 小Tips：这里有没有发现，设置导航靠右对齐（或居中对齐）其实非常简单 -->
+                <li class="layui-nav-item">
+                    <a href="">通知<span class="layui-badge">9</span></a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="">个人中心<span class="layui-badge-dot"></span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </header>
 <main>
     <div>
@@ -66,8 +87,8 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">开发人员</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="title" lay-verify="title" autocomplete="off"
-                                           placeholder="请输入标题"
+                                    <input type="text" name="title" lay-verify="title" autocomplete="on"
+                                           placeholder="请输入代码开发人员姓名"
                                            class="layui-input">
                                 </div>
                             </div>
@@ -75,7 +96,7 @@
                                 <label class="layui-form-label">主键规则</label>
                                 <div class="layui-input-block">
                                     <select name="interest" lay-filter="aihao">
-                                        <option value=""></option>
+                                        <!--<option value=""></option>-->
                                         <option value="ASSIGN_ID">ASSIGN_ID</option>
                                         <option value="AUTO">AUTO</option>
                                         <option value="INPUT">INPUT</option>
@@ -148,7 +169,7 @@
                             <label class="layui-form-label">表前缀</label>
                             <div class="layui-input-block">
                                 <input type="text" name="title" lay-verify="title" autocomplete="off"
-                                       placeholder="请输入标题"
+                                       placeholder="请填写表前缀，如tab_user -> tab_"
                                        class="layui-input">
                             </div>
                         </div>
@@ -160,39 +181,40 @@
                     </fieldset>
                     <form class="layui-form" action="">
                         <div class="layui-form-item">
-                            <label class="layui-form-label">驱动</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="title" lay-verify="title" autocomplete="off"
-                                       placeholder="请输入标题"
-                                       class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">链接</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="title" lay-verify="title" autocomplete="off"
-                                       placeholder="请输入标题"
-                                       class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-form-item">
                             <div class="layui-inline">
                                 <label class="layui-form-label">账号</label>
                                 <div class="layui-input-block">
                                     <input type="text" name="title" lay-verify="title" autocomplete="off"
-                                           placeholder="请输入标题"
+                                           placeholder="请输入登录账号"
                                            class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-inline">
                                 <label class="layui-form-label">密码</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="title" lay-verify="title" autocomplete="off"
-                                           placeholder="请输入标题"
+                                    <input type="password" name="title" lay-verify="title" autocomplete="off"
+                                           placeholder="请输入连接密码"
                                            class="layui-input">
                                 </div>
                             </div>
                         </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">驱动</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="title" lay-verify="title" autocomplete="off"
+                                       placeholder="请填写数据库连接驱动"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">连接</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="title" lay-verify="title" autocomplete="off"
+                                       placeholder="请输入数据库连接地址"
+                                       class="layui-input">
+                            </div>
+                        </div>
+
                     </form>
                 </div>
             </div>
@@ -201,6 +223,7 @@
                     <legend>选择表</legend>
                 </fieldset>
                 <div id="tables" class="demo-transfer"></div>
+
             </div>
         </div>
         <div class="layui-form-item" style="text-align: center; margin-top: 40px;">

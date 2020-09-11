@@ -2,12 +2,13 @@ package com.cloud.easytoolsserver.controller;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.pool.DruidPooledConnection;
-import com.alibaba.druid.proxy.DruidDriver;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
+import com.baomidou.mybatisplus.generator.config.GlobalConfig;
+import com.baomidou.mybatisplus.generator.config.PackageConfig;
+import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.cloud.easytoolsserver.code.CodeGennerator;
 import com.cloud.easytoolsserver.model.GenneratorConfig;
 import com.cloud.easytoolsserver.model.SourceConfig;
-import com.fasterxml.jackson.databind.util.JSONWrappedObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.sql.Driver;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -40,15 +41,16 @@ public class GeneratorController {
     }
 
 
-    @ResponseBody
     @PostMapping("/submit")
-    public String submit(@RequestBody GenneratorConfig config) {
+    public String submit(GlobalConfig globalConfig, StrategyConfig strategyConfig, DataSourceConfig dataSourceConfig, PackageConfig packageConfig, Model model) {
         try {
-            gennerator.submit(config);
+            gennerator.submit(new GenneratorConfig(globalConfig, strategyConfig, dataSourceConfig, packageConfig));
         } catch (Throwable e) {
-            return "Field";
+            model.addAttribute("msg", e.getMessage());
+            return "write";
         }
-        return "SUCCESS";
+        model.addAttribute("msg", "任务已提交，请耐心等待...");
+        return "write";
     }
 
 
@@ -56,12 +58,14 @@ public class GeneratorController {
     @PostMapping("/loadTables")
     public List<Map<String, String>> tables(@RequestBody SourceConfig sourceConfig) {
         List<Map<String, String>> tableList = new ArrayList<>();
+        DruidDataSource druid = null;
+        DruidPooledConnection connection = null;
         try {
-            DruidDataSource druid = new DruidDataSource();
+            druid = new DruidDataSource();
             druid.setUrl(sourceConfig.getUrl());
             druid.setUsername(sourceConfig.getUsername());
             druid.setPassword(sourceConfig.getPassword());
-            DruidPooledConnection connection = druid.getConnection();
+            connection = druid.getConnection();
             ResultSet tables = connection.getMetaData().getTables(connection.getCatalog(), connection.getSchema(), null, new String[]{"TABLE"});
             while (tables.next()) {
                 String tableName = tables.getString("TABLE_NAME");
@@ -70,8 +74,17 @@ public class GeneratorController {
                 map.put("value", tableName);
                 tableList.add(map);
             }
+            tables.close();
             return tableList;
         } catch (Exception e) {
+            try {
+                if(connection != null){
+                    connection.close();
+                }
+                if (druid != null) {
+                    druid.close();
+                }
+            } catch (SQLException e1) {}
             return tableList;
         }
     }

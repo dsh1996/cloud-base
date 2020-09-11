@@ -1,0 +1,83 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>代码平台</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../layui/css/layui.css" media="all">
+    <style>
+        html, body {
+            padding: 0;
+            margin: 0;
+            font-size: 14px;
+            width: 100%;
+            height: 100%;
+        }
+
+        header {
+            height: 60px;
+            background-color: #393D49;
+        / / #909399;
+            line-height: 60px;
+        }
+
+        header h2 {
+            margin: auto;
+        }
+
+        main {
+            width: 80%;
+            height: calc(100% - 170px);
+            margin: 30px auto;
+            overflow: scroll;
+        }
+
+        .layui-elem-field legend {
+            font-size: 16px;
+        }
+
+        footer {
+            height: 50px;
+            background-color: #ccc;
+            text-align: center;
+            line-height: 50px;
+        }
+
+        main::-webkit-scrollbar {
+            display: none
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="layui-row" style="width: 80%; margin: auto">
+        <div class="layui-col-xs9">
+            <h2 style="color: #fff;text-indent: 10px;">
+                <i class="layui-icon layui-icon-tree" style="font-size: 30px;"></i>
+                代码助手平台
+            </h2>
+        </div>
+        <div class="layui-col-xs3" style="text-align: right">
+            <ul class="layui-nav"> <-- 小Tips：这里有没有发现，设置导航靠右对齐（或居中对齐）其实非常简单 -->
+                <li class="layui-nav-item">
+                    <a href="">通知<span class="layui-badge">9</span></a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="">个人中心<span class="layui-badge-dot"></span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+<main>
+    等待资源生成...
+    <div th:text="${msg}"></div>
+</main>
+<footer>
+    Copyright 2020 by 2765451783@qq.com
+</footer>
+</body>
+<script src="../layui/layui.js" charset="utf-8"></script>
+</html>

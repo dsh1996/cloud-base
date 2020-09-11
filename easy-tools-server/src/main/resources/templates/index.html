@@ -72,7 +72,7 @@
     </div>
 </header>
 <main>
-    <div>
+    <form class="layui-form" id="mainForm" method="post" action="/code/submit">
         <fieldset class="layui-elem-field layui-field-title" style="text-align: center;">
             <legend>~ Generator Code ~</legend>
         </fieldset>
@@ -82,98 +82,96 @@
                     <fieldset class="layui-elem-field layui-field-title">
                         <legend>全局配置</legend>
                     </fieldset>
-                    <form class="layui-form" action="">
-                        <div class="layui-form-item">
-                            <div class="layui-inline">
-                                <label class="layui-form-label">开发人员</label>
-                                <div class="layui-input-block">
-                                    <input type="text" name="title" lay-verify="title" autocomplete="on"
-                                           placeholder="请输入代码开发人员姓名"
-                                           class="layui-input">
-                                </div>
-                            </div>
-                            <div class="layui-inline">
-                                <label class="layui-form-label">主键规则</label>
-                                <div class="layui-input-block">
-                                    <select name="interest" lay-filter="aihao">
-                                        <!--<option value=""></option>-->
-                                        <option value="ASSIGN_ID">ASSIGN_ID</option>
-                                        <option value="AUTO">AUTO</option>
-                                        <option value="INPUT">INPUT</option>
-                                        <option value="ASSIGN_UUID">ASSIGN_UUID</option>
-                                        <option value="ID_WORKER">ID_WORKER</option>
-                                        <option value="ID_WORKER_STR">ID_WORKER_STR</option>
-                                        <option value="UUID">UUID</option>
-                                        <option value="NONE">NONE</option>
-                                    </select>
-                                </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">开发人员</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="author" lay-verify="title" autocomplete="on"
+                                       placeholder="请输入代码开发人员姓名"
+                                       class="layui-input">
                             </div>
                         </div>
-                        <div class="layui-form-item">
-                            <div class="layui-inline">
-                                <label class="layui-form-label">接口文档</label>
-                                <div class="layui-input-block">
-                                    <input type="checkbox" name="close" lay-skin="switch" lay-text="ON|OFF">
-                                </div>
-                            </div>
-                            <div class="layui-inline">
-                                <label class="layui-form-label">结果集</label>
-                                <div class="layui-input-block">
-                                    <input type="checkbox" name="close" lay-skin="switch" lay-text="ON|OFF">
-                                </div>
-                            </div>
-                            <div class="layui-inline">
-                                <label class="layui-form-label">基础列</label>
-                                <div class="layui-input-block">
-                                    <input type="checkbox" name="close" lay-skin="switch" lay-text="ON|OFF">
-                                </div>
-                            </div>
-                            <div class="layui-inline">
-                                <label class="layui-form-label">文件覆盖</label>
-                                <div class="layui-input-block">
-                                    <input type="checkbox" name="close" lay-skin="switch" lay-text="ON|OFF">
-                                </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">主键规则</label>
+                            <div class="layui-input-block">
+                                <select name="idType" lay-filter="aihao">
+                                    <!--<option value=""></option>-->
+                                    <option value="ASSIGN_ID">ASSIGN_ID</option>
+                                    <option value="AUTO">AUTO</option>
+                                    <option value="INPUT">INPUT</option>
+                                    <option value="ASSIGN_UUID">ASSIGN_UUID</option>
+                                    <option value="ID_WORKER">ID_WORKER</option>
+                                    <option value="ID_WORKER_STR">ID_WORKER_STR</option>
+                                    <option value="UUID">UUID</option>
+                                    <option value="NONE">NONE</option>
+                                </select>
                             </div>
                         </div>
-                    </form>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">接口文档</label>
+                            <div class="layui-input-block">
+                                <input type="checkbox" name="swagger2" lay-skin="switch" lay-text="ON|OFF">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">结果集</label>
+                            <div class="layui-input-block">
+                                <input type="checkbox" name="baseResultMap" lay-skin="switch" lay-text="ON|OFF">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">基础列</label>
+                            <div class="layui-input-block">
+                                <input type="checkbox" name="baseColumnList" lay-skin="switch" lay-text="ON|OFF">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">文件覆盖</label>
+                            <div class="layui-input-block">
+                                <input type="checkbox" name="fileOverride" lay-skin="switch" lay-text="ON|OFF">
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div>
                     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 10px;">
                         <legend>策略配置</legend>
                     </fieldset>
-                    <form class="layui-form" action="">
-                        <div class="layui-form-item">
-                            <div class="layui-inline">
-                                <label class="layui-form-label">Lombok</label>
-                                <div class="layui-input-block">
-                                    <input type="checkbox" name="close" lay-skin="switch" lay-text="ON|OFF">
-                                </div>
-                            </div>
-                            <div class="layui-inline">
-                                <label class="layui-form-label">实体注解</label>
-                                <div class="layui-input-block">
-                                    <input type="checkbox" name="close" lay-skin="switch" lay-text="ON|OFF">
-                                </div>
-                            </div>
-                            <div class="layui-inline">
-                                <label class="layui-form-label">抽象类</label>
-                                <div class="layui-input-block">
-                                    <input type="checkbox" name="like1[write]" lay-skin="primary"
-                                           title="SuperController"
-                                           checked="">
-                                    <input type="checkbox" name="like1[read]" lay-skin="primary" title="SuperEntity">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">表前缀</label>
+
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">Lombok</label>
                             <div class="layui-input-block">
-                                <input type="text" name="title" lay-verify="title" autocomplete="off"
-                                       placeholder="请填写表前缀，如tab_user -> tab_"
-                                       class="layui-input">
+                                <input type="checkbox" name="entityLombokModel" lay-skin="switch" lay-text="ON|OFF">
                             </div>
                         </div>
-                    </form>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">实体注解</label>
+                            <div class="layui-input-block">
+                                <input type="checkbox" name="entityTableFieldAnnotationEnable" lay-skin="switch"
+                                       lay-text="ON|OFF">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">抽象类</label>
+                            <div class="layui-input-block">
+                                <input type="checkbox" name="like1[write]" lay-skin="primary"
+                                       title="SuperController"
+                                       checked="">
+                                <input type="checkbox" name="like1[read]" lay-skin="primary" title="SuperEntity">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">表前缀</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="tablePrefix" lay-verify="title" autocomplete="off"
+                                   placeholder="请填写表前缀，如tab_user -> tab_"
+                                   class="layui-input">
+                        </div>
+                    </div>
                 </div>
                 <div>
                     <fieldset class="layui-elem-field layui-field-title">
@@ -213,7 +211,6 @@
                                           class="layui-textarea" rows="7"></textarea>
                             </div>
                         </div>
-
                     </form>
                 </div>
             </div>
@@ -225,71 +222,70 @@
                 <fieldset class="layui-elem-field layui-field-title" style="text-align: center;">
                     <legend>包配置</legend>
                 </fieldset>
-                <form class="layui-form" action="">
-                    <div class="layui-form-item">
-                        <div class="layui-inline">
-                            <label class="layui-form-label">Package</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="title" lay-verify="title" autocomplete="on"
-                                       placeholder="基础包配置，如:com.test.server"
-                                       class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">Controller</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="title" value="controller" lay-verify="title" autocomplete="on"
-                                       placeholder="如: controller"
-                                       class="layui-input">
-                            </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">Package</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="parent" lay-verify="title" autocomplete="on"
+                                   placeholder="基础包配置，如:com.test.server"
+                                   class="layui-input">
                         </div>
                     </div>
-                    <div class="layui-form-item">
-                        <div class="layui-inline">
-                            <label class="layui-form-label">Service</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="title" value="service" lay-verify="title" autocomplete="on"
-                                       placeholder="如: service"
-                                       class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">ServiceImpl</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="title" value="service.impl" lay-verify="title"
-                                       autocomplete="on"
-                                       placeholder="如: service.impl"
-                                       class="layui-input">
-                            </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">Controller</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="controller" value="controller" lay-verify="title"
+                                   autocomplete="on"
+                                   placeholder="如: controller"
+                                   class="layui-input">
                         </div>
                     </div>
-                    <div class="layui-form-item">
-                        <div class="layui-inline">
-                            <label class="layui-form-label">Mapper</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="title" value="mapper" lay-verify="title" autocomplete="on"
-                                       placeholder="如： mapper"
-                                       class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">MapperXml</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="title" value="xml" lay-verify="title" autocomplete="on"
-                                       placeholder="如：xml"
-                                       class="layui-input">
-                            </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">Service</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="service" value="service" lay-verify="title" autocomplete="on"
+                                   placeholder="如: service"
+                                   class="layui-input">
                         </div>
                     </div>
-                </form>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">ServiceImpl</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="serviceImpl" value="service.impl" lay-verify="title"
+                                   autocomplete="on"
+                                   placeholder="如: service.impl"
+                                   class="layui-input">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">Mapper</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="mapper" value="mapper" lay-verify="title" autocomplete="on"
+                                   placeholder="如： mapper"
+                                   class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <label class="layui-form-label">MapperXml</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="xml" value="xml" lay-verify="title" autocomplete="on"
+                                   placeholder="如：xml"
+                                   class="layui-input">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="layui-form-item" style="text-align: center; margin-top: 40px;">
             <button type="button" id="loadTbBtn" class="layui-btn layui-btn-normal">拉取表¹</button>
-            <button type="button" class="layui-btn layui-btn-normal">开始执行²</button>
+            <button type="button" class="layui-btn layui-btn-normal" id="submitBtn">开始执行²</button>
             <button type="button" class="layui-btn layui-btn-primary">重置表单</button>
         </div>
-    </div>
+    </form>
 </main>
 <footer>
     Copyright 2020 by 2765451783@qq.com
@@ -317,7 +313,14 @@
             title: ['所有表', '选中表'],
             elem: '#tables',
             data: [],
-            id: "tableList"
+            id: "tableList",
+            onchange: function (data, index) {
+                if (index == 0) {
+                    for (i in data) {
+                        $("#mainForm").append("<input type='hidden' name='include[" + i + "]' value='" + data[i].value + "'/>")
+                    }
+                }
+            }
         });
 
         $("#loadTbBtn").click(function () {
@@ -345,6 +348,11 @@
                 }
             })
         });
+
+        $("#submitBtn").click(function () {
+            console.log("开始提交表单");
+            $("#mainForm").submit();
+        })
     });
 
 

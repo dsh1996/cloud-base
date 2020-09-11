@@ -55,8 +55,8 @@
     <div class="layui-row" style="width: 80%; margin: auto">
         <div class="layui-col-xs9">
             <h2 style="color: #fff;text-indent: 10px;">
-                <i class="layui-icon layui-icon-tree"style="font-size: 30px;"></i>
-                代码生成平台
+                <i class="layui-icon layui-icon-tree" style="font-size: 30px;"></i>
+                代码助手平台
             </h2>
         </div>
         <div class="layui-col-xs3" style="text-align: right">
@@ -77,7 +77,7 @@
             <legend>~ Generator Code ~</legend>
         </fieldset>
         <div class="layui-row">
-            <div class="layui-col-xs7">
+            <div class="layui-col-xs6">
                 <div class="grid-demo grid-demo-bg1">
                     <fieldset class="layui-elem-field layui-field-title">
                         <legend>全局配置</legend>
@@ -179,12 +179,12 @@
                     <fieldset class="layui-elem-field layui-field-title">
                         <legend>数据源配置</legend>
                     </fieldset>
-                    <form class="layui-form" action="">
+                    <form class="layui-form" id="dataSourceForm" action="">
                         <div class="layui-form-item">
                             <div class="layui-inline">
                                 <label class="layui-form-label">账号</label>
                                 <div class="layui-input-block">
-                                    <input type="text" name="title" lay-verify="title" autocomplete="off"
+                                    <input type="text" name="username" lay-verify="title" autocomplete="off"
                                            placeholder="请输入登录账号"
                                            class="layui-input">
                                 </div>
@@ -192,7 +192,7 @@
                             <div class="layui-inline">
                                 <label class="layui-form-label">密码</label>
                                 <div class="layui-input-block">
-                                    <input type="password" name="title" lay-verify="title" autocomplete="off"
+                                    <input type="password" name="password" lay-verify="title" autocomplete="off"
                                            placeholder="请输入连接密码"
                                            class="layui-input">
                                 </div>
@@ -201,7 +201,7 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">驱动</label>
                             <div class="layui-input-block">
-                                <input type="text" name="title" lay-verify="title" autocomplete="off"
+                                <input type="text" name="driverName" lay-verify="title" autocomplete="off"
                                        placeholder="请填写数据库连接驱动"
                                        class="layui-input">
                             </div>
@@ -209,41 +209,101 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">连接</label>
                             <div class="layui-input-block">
-                                <input type="text" name="title" lay-verify="title" autocomplete="off"
-                                       placeholder="请输入数据库连接地址"
-                                       class="layui-input">
+                                <textarea name="url" required lay-verify="required" placeholder="请输入数据库连接地址"
+                                          class="layui-textarea" rows="7"></textarea>
                             </div>
                         </div>
 
                     </form>
                 </div>
             </div>
-            <div class="layui-col-xs4 layui-col-xs-offset1">
+            <div class="layui-col-xs5 layui-col-xs-offset1">
                 <fieldset class="layui-elem-field layui-field-title" style="text-align: center;">
                     <legend>选择表</legend>
                 </fieldset>
                 <div id="tables" class="demo-transfer"></div>
-
+                <fieldset class="layui-elem-field layui-field-title" style="text-align: center;">
+                    <legend>包配置</legend>
+                </fieldset>
+                <form class="layui-form" action="">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">Package</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="title" lay-verify="title" autocomplete="on"
+                                       placeholder="基础包配置，如:com.test.server"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">Controller</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="title" value="controller" lay-verify="title" autocomplete="on"
+                                       placeholder="如: controller"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">Service</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="title" value="service" lay-verify="title" autocomplete="on"
+                                       placeholder="如: service"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">ServiceImpl</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="title" value="service.impl" lay-verify="title"
+                                       autocomplete="on"
+                                       placeholder="如: service.impl"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">Mapper</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="title" value="mapper" lay-verify="title" autocomplete="on"
+                                       placeholder="如： mapper"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">MapperXml</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="title" value="xml" lay-verify="title" autocomplete="on"
+                                       placeholder="如：xml"
+                                       class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
         <div class="layui-form-item" style="text-align: center; margin-top: 40px;">
-            <button type="button" class="layui-btn layui-btn-normal">拉取表¹</button>
+            <button type="button" id="loadTbBtn" class="layui-btn layui-btn-normal">拉取表¹</button>
             <button type="button" class="layui-btn layui-btn-normal">开始执行²</button>
             <button type="button" class="layui-btn layui-btn-primary">重置表单</button>
         </div>
     </div>
 </main>
 <footer>
-    @copy 2020-09
+    Copyright 2020 by 2765451783@qq.com
 </footer>
 <script src="../layui/layui.js" charset="utf-8"></script>
 <script>
-    layui.use(['transfer', 'form', 'layedit', 'laydate'], function () {
+    const BASE_PATH = "http://localhost";
+    layui.use(['transfer', 'form', 'layedit', 'laydate', 'jquery'], function () {
         var form = layui.form
             , layer = layui.layer
             , transfer = layui.transfer
             , layedit = layui.layedit
-            , laydate = layui.laydate;
+            , $ = layui.jquery,
+            laydate = layui.laydate;
         //监听指定开关
         form.on('switch(switchTest)', function (data) {
             layer.msg('开关checked：' + (this.checked ? 'true' : 'false'), {
@@ -252,24 +312,42 @@
             layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
         });
 
-        //模拟数据
-        var data1 = [
-            {"value": "1", "title": "李白"}
-            , {"value": "2", "title": "杜甫"}
-            , {"value": "3", "title": "苏轼"}
-            , {"value": "4", "title": "李清照"}
-            , {"value": "5", "title": "鲁迅", "disabled": true}
-            , {"value": "6", "title": "巴金"}
-            , {"value": "7", "title": "冰心"}
-            , {"value": "8", "title": "矛盾"}
-            , {"value": "9", "title": "贤心"}
-        ];
         //基础效果
         transfer.render({
-            elem: '#tables'
-            , data: data1
-        })
+            title: ['所有表', '选中表'],
+            elem: '#tables',
+            data: [],
+            id: "tableList"
+        });
+
+        $("#loadTbBtn").click(function () {
+            let data = {
+                username: $("input[name='username']").val(),
+                password: $("input[name='password']").val(),
+                dbType: $("input[name='dbType']").val(),
+                driverName: "java.sql.Driver",
+                url: $("textarea[name='url']").val() //"jdbc:mysql://192.168.68.128:10000/auth?serverTimezone=UTC"
+            };
+            $.ajax({
+                url: BASE_PATH + "/code/loadTables",
+                type: "POST",
+                data: JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    transfer.reload('tableList', {
+                        title: ['所有表', '选中表'],
+                        elem: '#tables',
+                        showSearch: true,
+                        data: data,
+                        id: 'tableList'
+                    });
+                }
+            })
+        });
     });
+
+
 </script>
 </body>
 </html>

@@ -10,9 +10,11 @@ import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.cloud.easytoolsserver.base.SuperController;
 import com.cloud.easytoolsserver.model.GenneratorConfig;
+import org.springframework.stereotype.Component;
 
 import java.sql.Driver;
 
+@Component
 public class CodeGennerator {
 
     static String DRIVER_NAME = Driver.class.getName();
